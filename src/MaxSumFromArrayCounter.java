@@ -1,36 +1,9 @@
-import java.util.Arrays;
-
 public class MaxSumFromArrayCounter {
     public static void main(String[] args) {
-        int[] arr = {1, 3, 8, 2, 8, 9, 12};
+        int[] arr = {100, 2, 1};
 
-        sortArrayDesc(arr);
-        int[] res = getMaxValuesFromArray(arr, 4);
-        showArrayValues(res);
-        System.out.println(sum(res));
-    }
-
-    public static void sortArrayDesc(int[] array) {
-        for (int i = 0; i < array.length; i++) {
-            for (int j = i + 1; j < array.length; j++) {
-                if (array[j] > array[i]) {
-                    int temp = array[i];
-                    array[i] = array[j];
-                    array[j] = temp;
-                }
-            }
-        }
-    }
-
-    public static int[] getMaxValuesFromArray(int[] array, int count) {
-        int[] arrayWithMaxValues = Arrays.copyOf(array, count);
-        return arrayWithMaxValues;
-    }
-
-    public static void showArrayValues(int[] array) {
-        for (int i = 0; i < array.length; i++) {
-            System.out.println(array[i]);
-        }
+        int[] arrayMaxNumbers = getTwoMax(arr);
+        System.out.println(sum(arrayMaxNumbers));
     }
 
     public static int sum(int... v) {
@@ -40,5 +13,28 @@ public class MaxSumFromArrayCounter {
             sum += x;
         }
         return sum;
+    }
+
+    public static int[] getTwoMax(int[] array) {
+        int max1 = array[0];
+        int max2 = array[1];
+
+        if (max2 > max1) {
+            int temp = max1;
+            max1 = max2;
+            max2 = temp;
+        }
+
+        for (int i = 2; i < array.length; i++) {
+            if (array[i] > max1) {
+                max2 = max1;
+                max1 = array[i];
+            } else {
+                if (array[i] > max2) {
+                    max2 = array[i];
+                }
+            }
+        }
+        return new int[]{max1, max2};
     }
 }
